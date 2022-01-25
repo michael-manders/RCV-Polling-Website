@@ -1,0 +1,105 @@
+/*   color scheme   */
+:root {
+    --persian-indigo: #27187E;
+    --cornflower-blue: #758BFD;
+    --maximum-blue-purple: #AEB8FE;
+    --cultured: #F1F2F6;
+    --dark-orange: #FF8600;
+}
+
+body {
+    background-color: var(--cornflower-blue);
+    margin: 0px;
+    align-content: center;
+}
+
+#header {
+    color: var(--persian-indigo);
+    background-color: var(--dark-orange);
+    width: 100vw;
+    height: 15vh;
+    text-align: center;
+    font-size: 12vh;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+form > input {
+    background-color: var(--maximum-blue-purple);
+    font-family: monospace;
+    text-align: center;
+    border-color: var(--persian-indigo);
+    caret-color: var(--maximum-blue-purple);
+}
+
+#PINInput {
+    width: 50vw;
+    height: 20vh;
+    margin: 7vh 25vw 7vh 25vw;
+    font-size: 4vh;
+}
+
+#options {
+    display: flexbox   ;
+    margin: 0vh 20vw 7vh 20vw;
+    width: 60vw;
+    height: 30vh;
+    padding: 0px;
+    border-width: 0px;
+    align-items: center;
+    justify-content: center;
+}
+
+#options > input {
+    width: 14.6vw;
+    height: 10vh;
+    margin: 5vh 2.5vw 0px 2.5vw;
+    border-width: 0px;  
+    padding: 0px;
+    text-align: center;
+    font-family: monospace;
+    background-color: var(--maximum-blue-purple);
+    caret-color: var(--maximum-blue-purple);
+    font-size: 2vh;
+}
+
+#submit {
+    width: 20vw;
+    height: 5vh;
+    margin: 5vh 40vw 5ch 40vw;
+    background-color: var(--dark-orange);
+    font-size: 4vh;
+    font-family: monospace;
+    text-align: center;
+    border-radius: 1vh;
+}
+
+#submit:hover {
+    background-color: var(--maximum-blue-purple);
+}
+
+a {
+    position: fixed;
+    left: 1vw;
+    bottom: 95vh;
+    color: var(--persian-indigo);
+    text-decoration: none;
+    background-color: var(--cornflower-blue);
+    width: 5vw;
+    height: 3vh;
+    border-radius: 1vw;
+    text-align: center;
+    font-family: monospace;
+    font-size: 2.5vh;
+}
+
+#multiple_votes_button {
+    width: 20vw;
+    height: 6vh;
+    margin: 1vh 40vw;
+    background-color: var(--persian-indigo);
+    border-radius: 3vh;
+    color: var(--cultured);
+    font-family: monospace;
+    font-size: 1vw;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Website</title>
+    <link rel="stylesheet" href="/assets/css/welcome.css">
+    <script>
+        function createVoteClick() {
+            window.location = "/pages/create_vote"
+        }
+        function VoteClick() {
+            window.location = "/pages/enter_pin"
+        }
+    </script>
+</head>
+<body>
+    <div id="header">RANKED CHOICE VOTING</div>
+    <div id="vote" onclick="VoteClick()">ENTER VOTE</div>
+    <div id="create" onclick="createVoteClick()">CREATE VOTE</div>
+</body>
+</html>

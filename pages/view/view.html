@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/view.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Results for {pin}</title>
+    <script>
+        window.onload = setup
+        
+        function setup() {
+            setInterval(update, 1000)
+        }
+
+        function update() {
+            $.get("/results?{pin}", function (data, status) { // ajax request to get the results
+                let chart_values = {}
+                data = JSON.parse(data);
+                const winner = calculateWinner(data)
+                //sets up the chart to take data
+                for (vote of data) {
+                    for (subvote in vote) {
+                        chart_values[subvote] = {
+                            1: 0,
+                            2: 0,
+                            3: 0,
+                            4: 0,
+                            5: 0,
+                            6: 0
+                        }
+                    }
+                }
+                // adds the data
+                for (vote of data) {
+                    for (subvote in vote) {
+                        chart_values[subvote][vote[subvote]]++
+                    }
+                }
+                
+                // get the options in alphabetical order
+
+                let options = Object.keys(chart_values).sort();
+                keys = [];
+                values = [];
+
+                for (let i = 0; i < options.length; i++) {
+                    keys.push(i + 1);
+                    values.push([]);
+                };
+                //sets up an object to store how many of each option there are per choice                                
+                counting = {};
+                keys.forEach((key, i) => counting[key] = values[i]);
+
+                //set up the corrisponding color values
+                colors = ["pink", "lightblue", "orange", "rgb(96, 209, 96)", "rgb(125, 104, 241)", "rgb(104, 241, 200)"];
+                colorValues = {};
+                options.forEach((key, i) => colorValues[key] = colors[i]);
+
+                //adds the vote to each choice in counting
+                for (ballot of data) {
+                    for (choice in ballot) {
+                        counting[parseInt(ballot[choice])].push(choice);
+                    };
+                };
+
+                //makes a rotationValues object and sets it up to take data
+                rotationValues = {};
+
+                for (key of keys) {
+                    i = {}
+                    for (color of colors) {
+                        i[color] = 0;
+                    }   
+                    rotationValues[key] = i;
+                }
+                
+                ammountOfDegrees = 360 / data.length;
+                //sets the amount of degrees
+                for (rank in counting) {
+                    for (choice of counting[rank]) {
+                        color = colorValues[choice];
+                        rotationValues[rank][color] += ammountOfDegrees;
+                    };
+                };
+
+                //update so it works wiwth conic-gradient
+                for (rank in rotationValues) {
+                    usedDegrees = 0;
+                    for (color in rotationValues[rank]) {
+                        if (rotationValues[rank][color] > 0) {
+                            rotationValues[rank][color] += usedDegrees;
+                            usedDegrees = rotationValues[rank][color];
+                        }
+                    }
+                    
+                    // sorts it so there is no overlap
+                    const toSort = rotationValues[rank];
+
+                    const sorted = Object.entries(toSort)
+                        .sort(([,a],[,b]) => a-b)
+                        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});  
+                    rotationValues[rank] = sorted;
+
+                };
+
+                // apply styling to the pie charts
+                for (rank in rotationValues) {
+                    let css = 'conic-gradient(\n';
+                    for (color in rotationValues[rank]) {
+                        let addition = `${color} 0 ${rotationValues[rank][color]}deg,\n`
+                        css += addition;
+                    }
+                    //finishes the css string by removing the last comma and closing the parentheses
+                    css = css.substring(0, css.length - 2);
+                    css+=')';
+
+                    //applies styling
+                    console.log(css)
+                    document.getElementById(`chart${rank}`).style.backgroundImage = css;
+
+                }
+                i = 1;
+                for (choice of options) {
+                    document.getElementById(`key${i}`).innerText = choice;
+                    i++;
+                }
+
+                //sets the winner
+                document.getElementById("winner").innerText = `CURRENT WINNER: ${winner}`;
+
+                //update the ammount of votes
+                let str = `TOTAL VOTES: ${data.length}`;
+                document.getElementById("votes").innerText = str;
+
+            })  
+        }
+    </script>
+    <script>
+        function calculateWinner(data) {
+            ballots = []
+            for (balot of data) {
+                balot = Object.entries(balot)
+                    .sort(([,a],[,b]) => a-b)
+                    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+                ballots.push(Object.keys(balot));
+            };
+
+            const winner = (ballots) => {
+                const candidates = [... new Set (ballots .flat())]
+                const votes = Object .entries (ballots .reduce (
+                    (votes, [v]) => {votes [v] += 1; return votes},
+                    Object .assign (... candidates .map (c => ({[c]: 0})))
+                ))
+                const [topCand, topCount] = 
+                    votes .reduce (([n, m], [v, c]) => c > m ? [v, c] : [n, m], ['?', -Infinity])
+                const [bottomCand, bottomCount] = 
+                    votes .reduce (([n, m], [v, c]) => c < m ? [v, c] : [n, m], ['?', Infinity])
+
+                return topCount > ballots .length / 2 
+                    ? topCand
+                    : winner (ballots .map (ballot => ballot .filter (c => c != bottomCand)) .filter (b => b.length > 0))
+            }
+
+            return winner(ballots)
+        }
+    </script>
+</head> 
+<body>
+    <div id="votes"></div>
+    <a href="/">HOME</a>
+    <div id="header">{pin}</div>
+    <div id="winner">CURRENT WINNER: </div>
+    <div id="pie_charts">
+        <div class="chart" id="chart1"></div> <p id="chart1lable">1ST CHOICE</p>
+        <div class="chart" id="chart2"></div> <p id="chart2lable">2ND CHOICE</p>
+        <div class="chart" id="chart3"></div> <p id="chart3lable">3RD CHOICE</p>
+        <div class="chart" id="chart4"></div> <p id="chart4lable">4TH CHOICE</p>
+        <div class="chart" id="chart5"></div> <p id="chart5lable">5TH CHOICE</p>
+        <div class="chart" id="chart6"></div> <p id="chart6lable">6TH CHOICE</p>
+        <div class="keys" id="key1"></div>
+        <div class="keys" id="key2"></div>
+        <div class="keys" id="key3"></div>
+        <div class="keys" id="key4"></div>
+        <div class="keys" id="key5"></div>
+        <div class="keys" id="key6"></div>
+    </div>
+</body>
+</html>

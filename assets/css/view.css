@@ -1,0 +1,162 @@
+/*   color scheme   */
+:root {
+    --persian-indigo: #27187E;
+    --cornflower-blue: #758BFD;
+    --maximum-blue-purple: #AEB8FE;
+    --cultured: #F1F2F6;
+    --dark-orange: #FF8600;
+}
+
+
+body {
+    background-color: var(--cornflower-blue);
+    margin: 0px;
+    align-content: center;
+    font-family: monospace;
+}
+
+#header {
+    color: var(--persian-indigo);
+    background-color: var(--dark-orange);
+    width: 100vw;
+    height: 15vh;
+    text-align: center;
+    font-size: 12vh;
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;
+}
+
+#pie_charts {
+    width: 90vw;
+    height: 65vh;
+    background-color: var(--maximum-blue-purple);
+    border-radius: 3vw;
+    margin: 5vh 5vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    
+}
+
+.chart {
+    width: 12vw;
+    height: 12vw;
+    background-color: var(--persian-indigo);
+    margin: 1vw 2vw 2vw 2vw;
+    border-radius: 50%;
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 4000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 4000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 4000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    
+}
+
+#pie_charts > p {
+    width: 10vw;
+    margin-right: 4vw;
+    margin-top: 3vw;
+    font-family: monospace;
+    color: var(--persian-indigo);
+    font-size: 2.4vw;
+
+}
+
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+.keys {
+    width: 12vw;
+    height: 3vw;
+    background-color: var(--cultured);
+    text-align: center;
+    color: var(--persian-indigo);
+    font-family: monospace;
+    font-size: 1.3vw;
+}
+#key1 {
+    background-color: pink;
+}
+#key2 {
+    background-color: lightblue;
+}
+#key3 {
+    background-color: orange;
+}
+#key4 {
+    background-color: rgb(96, 209, 96);
+}
+#key5 {
+    background-color: rgb(125, 104, 241);
+}
+#key6 {
+    background-color: rgb(104, 241, 200);
+}
+
+#winner {
+    width: 80vw;
+    height: 6vh;
+    margin-top: 3vh;
+    margin-left: 10vw;
+    background-color: var(--maximum-blue-purple);
+    border-radius: 3vw;
+    border: .3vw solid var(--dark-orange);
+    text-align: center;
+    font-size: 3vw;
+}
+
+#votes {
+    position: fixed;
+    left: 86vw;
+    bottom: 95vh;
+    font-size: 1.4vw;
+    color: var(--persian-indigo);
+}
+
+a {
+    position: fixed;
+    left: 1vw;
+    bottom: 95vh;
+    color: var(--persian-indigo);
+    text-decoration: none;
+    background-color: var(--cornflower-blue);
+    width: 5vw;
+    height: 3vh;
+    border-radius: 1vw;
+    text-align: center;
+    font-family: monospace;
+    font-size: 2.5vh;
+}

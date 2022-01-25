@@ -1,0 +1,49 @@
+
+/*   color scheme   */
+:root {
+    --persian-indigo: #27187E;
+    --cornflower-blue: #758BFD;
+    --maximum-blue-purple: #AEB8FE;
+    --cultured: #F1F2F6;
+    --dark-orange: #FF8600;
+}
+
+
+body {
+    background-color: var(--cornflower-blue);
+    margin: 0px;
+    align-content: center;
+}
+
+#header {
+    color: var(--persian-indigo);
+    background-color: var(--dark-orange);
+    width: 100vw;
+    height: 15vh;
+    text-align: center;
+    font-size: 12vh;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+#vote, #create {
+    width: 90vw;
+    height: 15vh;
+    background-color: var(--cultured);
+    margin: 5vw;
+    border-radius: 2vw;
+    border-color: var(--persian-indigo);
+    border-style: solid;
+    border-width: 4px;
+    text-align: center;
+    font-size: 8vh;
+    line-height: 15vh;
+    font-family: monospace;
+    color: var(--dark-orange);
+}
+
+/* change button color on hover */
+#vote:hover, #create:hover {
+    background-color: var(--persian-indigo);
+    border-color: var(--cultured);
+}

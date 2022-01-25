@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create_vote</title>
+    <link rel="stylesheet" href="/assets/css/create_vote.css">
+    <script>
+
+        multipleVotesState = false;
+
+        function formClick(id) {
+            document.getElementById(id).value = "";
+        }
+
+        function submit() {
+            let info = {
+                "options": [],
+                "multiple_votes": multipleVotesState
+            };
+
+            for (input of document.getElementsByClassName("options")) {
+                if (!input.value.includes("⠀") && input.value.length > 0) {
+                    info["options"].push(input.value);
+                };
+            };
+
+            returnString = JSON.stringify(info);
+            window.location = `/pages/created?${returnString}`;
+        }
+
+        function multipleVotes() {
+            if (!multipleVotesState) {
+                document.getElementById('multiple_votes_button').style.backgroundColor = '#FF8600';
+                document.getElementById('multiple_votes_button').innerText = 'DISABLE MULTIPLE VOTES';
+                multipleVotesState = true;
+            }
+            else {
+                document.getElementById('multiple_votes_button').style.backgroundColor = '#27187E';
+                document.getElementById('multiple_votes_button').innerText = 'ENABLE MULTIPLE VOTES';
+                multipleVotesState = false;
+            }
+        };
+    </script>
+</head>
+<body>
+    <div id="header">CREATE VOTE</div>
+    <a href="/">HOME</a>
+    <form>
+        <div id="options">
+            <input autocomplete="off" class="options" type="text" value="OPTION 1⠀" id="O1" onclick="formClick('O1')">
+            <input autocomplete="off" class="options" type="text" value="OPTION 2⠀" id="O2" onclick="formClick('O2')">
+            <input autocomplete="off" class="options" type="text" value="OPTION 3 (OPTIONAL)⠀" id="O3" onclick="formClick('O3')">
+            <input autocomplete="off" class="options" type="text" value="OPTION 4 (OPTIONAL)⠀" id="O4" onclick="formClick('O4')">
+            <input autocomplete="off" class="options" type="text" value="OPTION 5 (OPTIONAL)⠀" id="O5" onclick="formClick('O5')">
+            <input autocomplete="off" class="options" type="text" value="OPTION 6 (OPTIONAL)⠀" id="O6" onclick="formClick('O6')">
+        </div>
+    </form>
+    <button id="multiple_votes_button" onclick = "multipleVotes()">
+        ENABLE MULTIPLE VOTES
+    </button>
+    <div id="submit" onclick="submit()">START!</div>
+</body>
+</html>

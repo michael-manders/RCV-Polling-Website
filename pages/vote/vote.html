@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote</title>
+    <link rel="stylesheet" href="/assets/css/vote.css">
+    <script>
+        let options = "options"
+        const pin = {pin}
+        function callcookie(name, value, days){
+            if (days) {
+                var d=new Date();
+                d.setTime(d.getTime()+(days*24*60*60*1000));
+                var expires = "; expires="+d.toGMTString();
+            }
+            else var expires = "";
+                document.cookie = name+"="+value+expires+"; path=/";
+            }
+    </script>
+    <script>
+        function enterOptions() {
+            i = 0;
+            for (option of options) {
+                id = `opt${i}`;
+                i++;
+                document.getElementById(id).innerText = option;
+            }
+
+            let toDelete = [];
+
+            for (element of document.getElementsByClassName("options")) {
+                if (element.innerText.length == 0) {
+                    toDelete.push(element)
+                }
+            }
+            for (element of toDelete) {
+                document.getElementById(element.id).remove();
+            }
+            //for the remaining elements, add a form to the div that can only have the correct characters
+            let innerHTMLs = [];
+            const form = `
+            <p class ="label">{label}</p>
+            <input onclick="formClick('{option}')" value="rank" type="text" id="{option}" class="rankInput" maxlength="1" oninput="this.value = this.value.replace(/[^1-{maxlength} ]/g, '').replace(/(\..*)\./g, '$1');">
+            `
+            for (element of document.getElementsByClassName("options")) {
+                updatedForm = form.replace("{label}", element.innerText).replace(/{option}/g, element.innerText).replace("{maxlength}", i)
+                element.innerHTML = updatedForm   
+            }
+            document.getElementById("insturctions").innerText = document.getElementById("insturctions").innerText.replace("{max}", i);
+        }
+        window.onload = enterOptions;   
+
+        function formClick(id) {
+            document.getElementById(id).value = "";
+            document.getElementById(id).style.fontSize = "3vh"
+        }
+    </script>
+    <script>
+        function submit() {
+
+            if (document.cookie.includes("voted={pin}")) return
+
+            callcookie("voted", pin, 1);
+
+            optionsAmmount = document.getElementsByClassName("options").length;
+            ranks = [];
+            for (element of document.getElementsByClassName("rankInput")) {
+                if (element.value === "rank" || element.value === '') return;
+                ranks.push(element.value);
+            }
+            //checks to make sure there are no repeat votes
+            for (i=1; i <= optionsAmmount; i++) {
+                if (!ranks.includes(`${i}`)) return;
+            }
+
+            output = {
+                "options": {},
+                "pin": {pin}
+            };
+
+            for (i=0; i<ranks.length; i++) {
+                output["options"][options[i]] = ranks[i];
+            }
+
+            window.location = `/pages/voted?${JSON.stringify(output)}`;
+
+        }
+    </script>
+</head>
+<body>
+    <div id="header">VOTE</div>
+    <a href="/">HOME</a>
+    <p id="insturctions">RANK THESE OPTIONS BETWEEN 1 AND {max}</p>
+    <div id="boxes">
+        <div class="options" id="opt0"></div>
+        <div class="options" id="opt1"></div>
+        <div class="options" id="opt2"></div>
+        <div class="options" id="opt3"></div>
+        <div class="options" id="opt4"></div>
+        <div class="options" id="opt5"></div>
+    </div>
+    <div onclick="submit()" id="submit">SUBMIT</div>
+</body>
+</html>

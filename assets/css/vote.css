@@ -1,0 +1,99 @@
+/*   color scheme   */
+:root {
+    --persian-indigo: #27187E;
+    --cornflower-blue: #758BFD;
+    --maximum-blue-purple: #AEB8FE;
+    --cultured: #F1F2F6;
+    --dark-orange: #FF8600;
+}
+
+
+body {
+    background-color: var(--cornflower-blue);
+    margin: 0px;
+    align-content: center;
+    font-family: monospace;
+}
+
+#header {
+    color: var(--persian-indigo);
+    background-color: var(--dark-orange);
+    width: 100vw;
+    height: 15vh;
+    text-align: center;
+    font-size: 12vh;
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;
+}
+
+#boxes {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--maximum-blue-purple);
+    width: 60vw;
+    height: 50vh;
+    margin: 5vh 20vw;
+    justify-content: center;
+    border-radius: 2vw;
+}
+
+.options {
+    background-color: var(--persian-indigo);
+    width: 14vw;
+    height: 14vh;
+    margin: 4vh 2vw;
+    border: 5px solid orange;
+    text-align: center;
+    color: var(--cultured);
+    font-family: monospace;
+    font-size: 3vh;
+    align-content: center;
+}
+
+.options > input {
+    background-color: var(--persian-indigo);
+    width: 4vw;
+    border: 0px;
+    border-bottom: .6vh solid var(--cornflower-blue);
+    text-align: center;
+    color: var(--maximum-blue-purple);
+    font-family: monospace;
+    margin-bottom: 5vh;
+}
+
+#insturctions {
+    text-align: center;
+    font-size: 4vh;
+    color: var(--persian-indigo);
+}
+
+#submit {
+    width: 15vw;
+    height: 7vh;
+    background-color: var(--maximum-blue-purple);
+    margin: 0px 42.5vw;
+    border-radius: 1vw;
+    text-align: center;
+    font-size: 5.3vh;
+    color: var(--persian-indigo);
+}
+
+#submit:hover {
+    background-color: var(--cultured);
+}
+
+a {
+    position: fixed;
+    left: 1vw;
+    bottom: 95vh;
+    color: var(--persian-indigo);
+    text-decoration: none;
+    background-color: var(--cornflower-blue);
+    width: 5vw;
+    height: 3vh;
+    border-radius: 1vw;
+    text-align: center;
+    font-family: monospace;
+    font-size: 2.5vh;
+}
