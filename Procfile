@@ -1,2 +1,2 @@
 web: node index.js
-start: node www/index.js
+start: node index.js
