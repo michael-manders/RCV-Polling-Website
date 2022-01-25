@@ -3,6 +3,8 @@ const fs = require('fs');
 const hostname = process.env.HOSTNAME || '127.0.0.1'
 const port = process.env.PORT || 5000; // define port 
 
+socket = io.listen(process.env.PORT);
+
 const server = http.createServer(async (req, res) => {
     res.statusCode = 200;
     url = req.url.split("?")[0]; // devide the data
